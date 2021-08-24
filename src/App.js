@@ -1,8 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import Input from "./components/Input";
 function UserForm() {
   let firstName = useRef(null);
   let lastName = useRef(null);
   let submit = useRef(null);
+  const [status, handleStatus] = useState("");
   useEffect(() => {
     firstName.current.focus();
     console.log();
@@ -19,14 +21,17 @@ function UserForm() {
   }
   function handleSubmit(e) {
     console.log("wo");
-    e.preventDefault();
+    handleStatus("Working fine");
   }
   return (
-    <form>
-      <input type="text" ref={firstName} onKeyDown={handleFirstname} />
-      <input type="text" ref={lastName} onKeyDown={handleLastname} />
-      <input type="submit" ref={submit} onKeyDown={handleSubmit} />
-    </form>
+    <>
+      <form>
+        <Input type="text" ref={firstName} onKeyDown={handleFirstname} />
+        <Input type="text" ref={lastName} onKeyDown={handleLastname} />
+        <Input type="button" value="GO" ref={submit} onKeyDown={handleSubmit} />
+      </form>
+      <div>{status}</div>
+    </>
   );
 }
 export default UserForm;
